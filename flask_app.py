@@ -5,6 +5,7 @@ from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, LoginManager, UserMixin, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -61,8 +62,8 @@ def index():
     #If the request we’re currently processing is a “GET” one, the viewer just wants to see the page, so we render the template. We’ve added an extra parameter to the call to render_template – the comments=comments bit. This means that the list of comments that we’ve defined as a variable further up will be available inside our template; we’ll update that to use the list in a moment.
     #If the request isn’t a “GET” (and so, we know it’s a “POST” – someone’s clicked the “Post comment” button) then the next bit is executed:
     if request.method == "GET":
-        return render_template("main_page.html", comments=Comment.query.all())
-        
+        return render_template("main_page.html", comments=Comment.query.all(), timestamp=datetime.now())
+
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
     #This extracts the stuff that was typed into the textarea in the page from the browser’s request; we know it’s in a thing called contents because that was the name we gave the textarea in the template:

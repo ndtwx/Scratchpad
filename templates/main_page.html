@@ -36,9 +36,15 @@
             <!-- put a loop in the Flask template language that will iterate over all of the comments
             that we passed in to it in the render_template code in our Python code, and put in a <div> for each of them -->
            {% for comment in comments %}
-            <div class="row">
-                {{ comment.content }}
+            <div class="row" style="margin-bottom: 1ex">
+                <div>
+                    {{ comment.content }}
+                </div>
+                <div>
+                    <small>Posted {{ timestamp.strftime("%A, %d %B %Y at %H:%M") }} by anonymous</small>
+                </div>
             </div>
+
             {% endfor %}
 
         {% if current_user.is_authenticated %}
