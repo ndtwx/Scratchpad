@@ -3,7 +3,7 @@
 
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import login_user, LoginManager, UserMixin, logout_user, login_required
+from flask_login import login_user, LoginManager, UserMixin, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
@@ -62,6 +62,9 @@ def index():
     #If the request isn’t a “GET” (and so, we know it’s a “POST” – someone’s clicked the “Post comment” button) then the next bit is executed:
     if request.method == "GET":
         return render_template("main_page.html", comments=Comment.query.all())
+        
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
     #This extracts the stuff that was typed into the textarea in the page from the browser’s request; we know it’s in a thing called contents because that was the name we gave the textarea in the template:
     #<textarea class="form-control" name="contents" placeholder="Enter a comment"></textarea>
     comment = Comment(content=request.form["contents"])
