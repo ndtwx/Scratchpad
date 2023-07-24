@@ -30,7 +30,7 @@
             that we passed in to it in the render_template code in our Python code, and put in a <div> for each of them --> 
            {% for comment in comments %}
             <div class="row">
-                {{ comment }}
+                {{ comment.content }}
             </div>
             {% endfor %}
 
