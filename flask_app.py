@@ -41,3 +41,9 @@ def index():
     
     #Once we’ve extracted the comment contents from the request, we add it to the list. Finally, once that’s been stored, we send a message back to the browser saying “Please request this page again, this time using a ‘GET’ method”, so that the user can see the results of their post:
     return redirect(url_for('index'))
+    
+@app.route("/login/")
+def login():
+    return render_template("login_page.html")
+    
+
