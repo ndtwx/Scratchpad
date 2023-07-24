@@ -57,6 +57,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(4096))
+    posted = db.Column(db.DateTime, default=datetime.now)
 
 #Specifies that the following function defines the view for the “/” URL, and that it accepts both “GET” and “POST” requests.
 @app.route("/", methods=["GET", "POST"])
@@ -64,7 +65,7 @@ def index():
     #If the request we’re currently processing is a “GET” one, the viewer just wants to see the page, so we render the template. We’ve added an extra parameter to the call to render_template – the comments=comments bit. This means that the list of comments that we’ve defined as a variable further up will be available inside our template; we’ll update that to use the list in a moment.
     #If the request isn’t a “GET” (and so, we know it’s a “POST” – someone’s clicked the “Post comment” button) then the next bit is executed:
     if request.method == "GET":
-        return render_template("main_page.html", comments=Comment.query.all(), timestamp=datetime.now())
+        return render_template("main_page.html", comments=Comment.query.all())
 
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -73,10 +74,10 @@ def index():
     comment = Comment(content=request.form["contents"])
     db.session.add(comment)
     db.session.commit()
-    
+
     #Once we’ve extracted the comment contents from the request, we add it to the list. Finally, once that’s been stored, we send a message back to the browser saying “Please request this page again, this time using a ‘GET’ method”, so that the user can see the results of their post:
     return redirect(url_for('index'))
-    
+
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -92,7 +93,7 @@ def login():
 
     login_user(user)
     return redirect(url_for('index'))
-    
+
 @app.route("/logout/")
 @login_required
 def logout():
