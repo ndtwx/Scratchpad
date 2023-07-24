@@ -54,6 +54,8 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(4096))
     posted = db.Column(db.DateTime, default=datetime.now)
+    commenter_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    commenter = db.relationship('User', foreign_keys=commenter_id)
 
 #Specifies that the following function defines the view for the “/” URL, and that it accepts both “GET” and “POST” requests.
 @app.route("/", methods=["GET", "POST"])
@@ -67,7 +69,7 @@ def index():
         return redirect(url_for('index'))
     #This extracts the stuff that was typed into the textarea in the page from the browser’s request; we know it’s in a thing called contents because that was the name we gave the textarea in the template:
     #<textarea class="form-control" name="contents" placeholder="Enter a comment"></textarea>
-    comment = Comment(content=request.form["contents"])
+    comment = Comment(content=request.form["contents"], commenter=current_user)
     db.session.add(comment)
     db.session.commit()
 
