@@ -11,35 +11,44 @@
 
     <body>
         <nav class="navbar navbar-inverse">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">My scratchpad</a>
-            </div>
-          </div>
-        </nav>
+         <div class="container">
+           <div class="navbar-header">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="#">My scratchpad</a>
+           </div>
+           <ul class="nav navbar-nav navbar-right">
+               {% if current_user.is_authenticated %}
+                   <li><a href="{{ url_for('logout') }}">Log out</a></li>
+               {% else %}
+                   <li><a href="{{ url_for('login') }}">Log in</a></li>
+               {% endif %}
+           </ul>
+         </div>
+       </nav>
 
         <div class="container">
-            
-            <!-- put a loop in the Flask template language that will iterate over all of the comments 
-            that we passed in to it in the render_template code in our Python code, and put in a <div> for each of them --> 
+
+            <!-- put a loop in the Flask template language that will iterate over all of the comments
+            that we passed in to it in the render_template code in our Python code, and put in a <div> for each of them -->
            {% for comment in comments %}
             <div class="row">
                 {{ comment.content }}
             </div>
             {% endfor %}
 
+        {% if current_user.is_authenticated %}
             <div class="row">
                 <form action="." method="POST">
                     <textarea class="form-control" name="contents" placeholder="Enter a comment"></textarea>
                     <input type="submit" class="btn btn-success" value="Post comment">
                 </form>
             </div>
+        {% endif %}
 
         </div>
 
