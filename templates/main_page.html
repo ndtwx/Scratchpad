@@ -25,19 +25,14 @@
         </nav>
 
         <div class="container">
-
+            
+            <!-- put a loop in the Flask template language that will iterate over all of the comments 
+            that we passed in to it in the render_template code in our Python code, and put in a <div> for each of them --> 
+           {% for comment in comments %}
             <div class="row">
-                This is the first dummy comment.
+                {{ comment }}
             </div>
-
-            <div class="row">
-                This is the the second dummy comment.  It's no more interesting
-                than the first.
-            </div>
-
-            <div class="row">
-                This is the third dummy comment.  It's actually quite exciting!
-            </div>
+            {% endfor %}
 
             <div class="row">
                 <form action="." method="POST">
