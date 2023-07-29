@@ -27,6 +27,10 @@
                {% else %}
                    <li><a href="{{ url_for('login') }}">Log in</a></li>
                {% endif %}
+               <!-- New navigation link -->
+               <li><a href="/login">Login</a></li>
+               <!-- New navigation link -->
+               <li><a href="/portfolio">Portfolio</a></li>
            </ul>
          </div>
        </nav>
@@ -69,7 +73,6 @@
                 <!-- Add the LinkedIn profile link here -->
                  This project is created by Andy Tang
                 <a href="https://www.linkedin.com/in/andy-tang-116701172/"><img src="{{ url_for('static', filename='Linkedin_Logo.png') }}" class="image" alt="LinkedIn Profile" width="30" height="30"> </a>
-
             </div>
         {% endif %}
         </div>

@@ -96,3 +96,8 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route("/portfolio")
+def portfolio():
+    # You can define your portfolio data and pass it to the template here
+    return render_template('portfolio_page.html')
