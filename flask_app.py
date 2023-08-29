@@ -97,3 +97,8 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/portfolio')
+def portfolio():
+    return render_template('portfolio_page.html')
+
+

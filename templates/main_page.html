@@ -22,6 +22,7 @@
              <a class="navbar-brand" href="#">Andy Tang's scratchpad</a>
            </div>
            <ul class="nav navbar-nav navbar-right">
+               <li><a href="https://ndtwx.github.io/andytangportfolio/">Portfolio</a></li> <!-- Add this line for the portfolio page -->
                {% if current_user.is_authenticated %}
                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
                {% else %}
